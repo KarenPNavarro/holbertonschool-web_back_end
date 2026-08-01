@@ -12,11 +12,10 @@ async def wait_n(n: int, max_delay: int) -> list:
     """
     Execute wait_random n times concurrently.
     """
-
-    tasks = []
-
-    for _ in range(n):
-        tasks.append(wait_random(max_delay))
+    tasks = [
+        asyncio.create_task(wait_random(max_delay))
+        for _ in range(n)
+    ]
 
     delays = []
 
